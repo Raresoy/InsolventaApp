@@ -31,7 +31,7 @@ logging.basicConfig(
 log = logging.getLogger(__name__)
 
 # ─── Config din variabile de mediu (GitHub Secrets) ─────────────────────────
-GMAIL_USER     = os.environ["GMAIL_USER"]       # ex: oferte.lichidator@gmail.com
+GMAIL_USER     = os.environ["GMAIL_USER"]      
 GMAIL_PASSWORD = os.environ["GMAIL_PASSWORD"]   # App Password Gmail (16 caractere)
 TRIBUNALE_JSON = os.environ["TRIBUNALE_JSON"]   # JSON: {"Tribunalul Cluj": "cluj@just.ro", ...}
 EMAIL_SUBIECT  = os.environ.get("EMAIL_SUBIECT", "Oferta lichidator judiciar – Dosar {nr_dosar} – {debitor}")
