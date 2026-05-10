@@ -1,0 +1,37 @@
+[
+  {
+    "text": "TRIBUNALUL {tribunal}",
+    "x0": 72.0,
+    "y0": 135.1,
+    "font": "Times Bold",
+    "size": 10.5
+  },
+  {
+    "text": "SECȚIA A II A CIVILĂ",
+    "x0": 72.0,
+    "y0": 160.7,
+    "font": "Times Bold",
+    "size": 10.5
+  },
+  {
+    "text": "Dosar nr. {nr_dosar}",
+    "x0": 72.0,
+    "y0": 182.6,
+    "font": "Times",
+    "size": 10.5
+  },
+  {
+    "text": "Debitor: {debitor}",
+    "x0": 72.0,
+    "y0": 206.4,
+    "font": "Times",
+    "size": 10.5
+  },
+  {
+    "text": "Nr. {nr_inregistrare} din {data_inreg}",
+    "x0": 414.0,
+    "y0": 230.2,
+    "font": "Times",
+    "size": 10.5
+  }
+]

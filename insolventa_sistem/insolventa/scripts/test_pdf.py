@@ -1,60 +1,23 @@
-"""
-Script de test local — verifica completarea PDF fara a accesa portal.just.ro.
-Genereaza un PDF de proba cu date fictive.
-
-Utilizare:
-    pip install -r requirements.txt
-    python scripts/test_pdf.py template.pdf
-
-Rezultat: output_pdfs/oferta_TEST-123-111-2026.pdf
-Deschide fisierul si verifica ca datele apar corect in antet.
-"""
-
 import sys
-import os
 from pathlib import Path
 
-# Simuleaza un dosar real
+BASE_DIR = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(BASE_DIR))
+from pdf_renderer import PDFRenderer
+
 DOSAR_TEST = {
-    "nr_dosar":        "123/111/2026",
-    "debitor":         "FIRMA TEST S.R.L.",
+    "nr_dosar": "123/111/2026",
+    "debitor": "FIRMA TEST SRL",
     "nr_inregistrare": "42",
-    "tribunal":        "Bihor",
-    "sectie":          "SECȚIA A II A CIVILĂ",
-    "data_inreg":      "07.05.2026",
+    "data_inreg": "07.05.2026",
 }
 
-# Adauga folderul parinte in path pentru a importa monitor.py
-sys.path.insert(0, str(Path(__file__).parent))
+print("🧪 Rulez test PDF...")
 
-# Seteaza variabile de mediu minime ca sa nu crape importul
-os.environ.setdefault("GMAIL_USER",     "test@test.com")
-os.environ.setdefault("GMAIL_PASSWORD", "test")
-os.environ.setdefault("TRIBUNALE_JSON", '{"Tribunalul Bihor": "bihor@just.ro"}')
+renderer = PDFRenderer("templates/template.pdf")
 
-from monitor import completeaza_pdf, PDF_TEMPLATE, OUTPUT_DIR
+OUTPUT = Path("output/test_output.pdf")
 
-if __name__ == "__main__":
-    if len(sys.argv) > 1:
-        import monitor
-        monitor.PDF_TEMPLATE = Path(sys.argv[1])
+output = renderer.render(DOSAR_TEST, str(OUTPUT))
 
-    if not PDF_TEMPLATE.exists() and len(sys.argv) < 2:
-        print(f"❌ Nu gasesc template.pdf. Ruleaza din folderul radacina:")
-        print(f"   python scripts/test_pdf.py template.pdf")
-        sys.exit(1)
-
-    print(f"🧪 Test completare PDF cu dosar fictiv:")
-    for k, v in DOSAR_TEST.items():
-        print(f"   {k}: {v}")
-    print()
-
-    try:
-        output = completeaza_pdf(DOSAR_TEST)
-        print(f"\n✅ SUCCESS! PDF generat: {output}")
-        print(f"   Deschide fisierul si verifica ca datele sunt in pozitia corecta.")
-        print(f"   Daca pozitia e gresita, ajusteaza coordonatele x,y din monitor.py")
-    except Exception as e:
-        print(f"\n❌ EROARE: {e}")
-        import traceback
-        traceback.print_exc()
+print("✅ PDF generat:", output)
