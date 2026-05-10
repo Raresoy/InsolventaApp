@@ -97,6 +97,7 @@ def salveaza_dosar(conn, dosar: dict):
 BASE_URL = "https://portal.just.ro/SitePages/cautare.aspx"
 
 SESSION = requests.Session()
+SESSION.verify = False  # portal.just.ro are certificat SSL cu lant incomplet
 SESSION.headers.update({
     "User-Agent": (
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
@@ -104,6 +105,9 @@ SESSION.headers.update({
         "Chrome/124.0.0.0 Safari/537.36"
     )
 })
+
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 def cauta_dosare_tribunal(tribunal_nume: str, data_azi: str) -> list[dict]:
