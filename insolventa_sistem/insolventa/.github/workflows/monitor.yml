@@ -23,6 +23,9 @@ jobs:
           python-version: '3.11'
           cache: 'pip'
 
+      - name: Debug structura fisiere
+        run: find . -name "*.txt" -o -name "*.py" | sort
+
       - name: Instaleaza librarii
         run: pip install -r insolventa_sistem/insolventa/requirements.txt
 
