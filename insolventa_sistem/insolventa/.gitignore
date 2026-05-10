@@ -1,0 +1,6 @@
+dosare.db
+monitor.log
+output_pdfs/
+*.pyc
+__pycache__/
+.env

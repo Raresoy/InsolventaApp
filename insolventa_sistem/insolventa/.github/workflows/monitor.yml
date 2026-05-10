@@ -1,0 +1,66 @@
+name: Monitor Insolventa
+
+on:
+  schedule:
+    # Ruleaza Luni-Vineri la orele 6, 10, 14, 18, 22 UTC (= 9, 13, 17, 21, 01 ora Romaniei)
+    - cron: '0 6,10,14,18,22 * * 1-5'
+
+  # Permite rulare manuala din interfata GitHub (pentru teste)
+  workflow_dispatch:
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      # ── 1. Descarca codul ─────────────────────────────────────────────────
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ── 2. Instaleaza Python ──────────────────────────────────────────────
+      - name: Instaleaza Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      # ── 3. Instaleaza dependintele Python ─────────────────────────────────
+      - name: Instaleaza librarii
+        run: pip install -r requirements.txt
+
+      # ── 4. Restaureaza baza de date din rularea anterioara ────────────────
+      - name: Restaureaza baza de date
+        uses: actions/download-artifact@v4
+        with:
+          name: dosare-db
+          path: .
+        continue-on-error: true   # Prima rulare nu are artifact — e OK
+
+      # ── 5. Ruleaza scriptul principal ─────────────────────────────────────
+      - name: Ruleaza monitor insolventa
+        env:
+          GMAIL_USER:      ${{ secrets.GMAIL_USER }}
+          GMAIL_PASSWORD:  ${{ secrets.GMAIL_PASSWORD }}
+          TRIBUNALE_JSON:  ${{ secrets.TRIBUNALE_JSON }}
+          EMAIL_SUBIECT:   ${{ secrets.EMAIL_SUBIECT }}
+          EMAIL_CORP:      ${{ secrets.EMAIL_CORP }}
+        run: python scripts/monitor.py
+
+      # ── 6. Salveaza baza de date pentru urmatoarea rulare ─────────────────
+      - name: Salveaza baza de date
+        uses: actions/upload-artifact@v4
+        if: always()   # Salveaza chiar daca scriptul a dat eroare
+        with:
+          name: dosare-db
+          path: dosare.db
+          retention-days: 90    # Pastreaza 90 de zile
+
+      # ── 7. Salveaza log-ul rularii ─────────────────────────────────────────
+      - name: Salveaza log rulare
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: log-${{ github.run_number }}
+          path: monitor.log
+          retention-days: 30
