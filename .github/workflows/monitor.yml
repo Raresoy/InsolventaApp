@@ -17,6 +17,8 @@ jobs:
       # ── 1. Descarca codul ─────────────────────────────────────────────────
       - name: Checkout repository
         uses: actions/checkout@v4
+        env:
+          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
       # ── 2. Instaleaza Python ──────────────────────────────────────────────
       - name: Instaleaza Python 3.11
@@ -28,13 +30,14 @@ jobs:
       # ── 3. Instaleaza dependintele Python ─────────────────────────────────
       - name: Instaleaza librarii
         run: pip install -r requirements.txt
+        working-directory: scripts
 
       # ── 4. Restaureaza baza de date din rularea anterioara ────────────────
       - name: Restaureaza baza de date
         uses: actions/download-artifact@v4
         with:
           name: dosare-db
-          path: .
+          path: scripts/
         continue-on-error: true   # Prima rulare nu are artifact — e OK
 
       # ── 5. Ruleaza scriptul principal ─────────────────────────────────────
@@ -45,16 +48,19 @@ jobs:
           TRIBUNALE_JSON:  ${{ secrets.TRIBUNALE_JSON }}
           EMAIL_SUBIECT:   ${{ secrets.EMAIL_SUBIECT }}
           EMAIL_CORP:      ${{ secrets.EMAIL_CORP }}
-        run: python scripts/monitor.py
+          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+        run: python monitor.py
+        working-directory: scripts
 
       # ── 6. Salveaza baza de date pentru urmatoarea rulare ─────────────────
       - name: Salveaza baza de date
         uses: actions/upload-artifact@v4
-        if: always()   # Salveaza chiar daca scriptul a dat eroare
+        if: always()
         with:
           name: dosare-db
-          path: dosare.db
-          retention-days: 90    # Pastreaza 90 de zile
+          path: scripts/dosare.db
+          retention-days: 90
+          if-no-files-found: warn
 
       # ── 7. Salveaza log-ul rularii ─────────────────────────────────────────
       - name: Salveaza log rulare
@@ -62,5 +68,6 @@ jobs:
         if: always()
         with:
           name: log-${{ github.run_number }}
-          path: monitor.log
+          path: scripts/monitor.log
           retention-days: 30
+          if-no-files-found: warn
