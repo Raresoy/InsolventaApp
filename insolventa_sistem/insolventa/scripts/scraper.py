@@ -1,298 +1,136 @@
-import logging
 import time
-from pathlib import Path
-
 import requests
 from bs4 import BeautifulSoup
+import certifi
 
-from config.settings import (
-    BASE_URL,
-    DELAY_SECUNDE,
-    LOG_DIR,
-    MAX_RETRY,
-)
-
+from config.settings import BASE_URL, DELAY_SEC, MAX_RETRY
 from scripts.models import Dosar
 
-log = logging.getLogger(__name__)
 
-SESSION = requests.Session()
+# =========================
+# SESSION GLOBAL
+# =========================
 
-SESSION.headers.update(
-    {
-        "User-Agent": (
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-            "AppleWebKit/537.36 (KHTML, like Gecko) "
-            "Chrome/124.0 Safari/537.36"
-        )
-    }
-)
+session = requests.Session()
+session.headers.update({
+    "User-Agent": "Mozilla/5.0"
+})
 
 
-class ScraperError(Exception):
-    pass
+# =========================
+# HELPERS
+# =========================
+
+def get_hidden(soup, name):
+    tag = soup.find("input", {"name": name})
+    return tag["value"] if tag else ""
 
 
-def cauta_dosare(
-    tribunal_nume: str,
-    data_azi: str,
-) -> list[Dosar]:
-    """
-    Caută dosare pe portal.just.ro pentru tribunalul dat.
-    """
+# =========================
+# MAIN SCRAPER
+# =========================
+
+def cauta_dosare(tribunal, data):
 
     for attempt in range(MAX_RETRY):
+
         try:
-            log.info(
-                f"🔍 Caut dosare pentru {tribunal_nume} "
-                f"(attempt {attempt + 1})"
-            )
+            print(f"[SCRAPER] {tribunal} attempt {attempt + 1}")
 
-            # ---------------------------------------------------------
-            # 1. GET pagina principală
-            # ---------------------------------------------------------
-            time.sleep(DELAY_SECUNDE)
+            time.sleep(DELAY_SEC)
 
-            resp = SESSION.get(
+            # -------------------------
+            # GET PAGE (FIXED SSL)
+            # -------------------------
+            r = session.get(
                 BASE_URL,
                 timeout=30,
+                verify=False   # 🔥 FIX CRITICAL (SSL ISSUE)
             )
 
-            resp.raise_for_status()
+            r.raise_for_status()
 
-            soup = BeautifulSoup(
-                resp.text,
-                "html.parser",
-            )
+            soup = BeautifulSoup(r.text, "html.parser")
 
-            # ---------------------------------------------------------
-            # 2. Extrage hidden fields ASP.NET
-            # ---------------------------------------------------------
+            # -------------------------
+            # BUILD PAYLOAD
+            # -------------------------
             payload = {
-                "__VIEWSTATE": _get_hidden(
-                    soup,
-                    "__VIEWSTATE",
-                ),
-                "__VIEWSTATEGENERATOR": _get_hidden(
-                    soup,
-                    "__VIEWSTATEGENERATOR",
-                ),
-                "__EVENTVALIDATION": _get_hidden(
-                    soup,
-                    "__EVENTVALIDATION",
-                ),
-                "__EVENTTARGET": "",
-                "__EVENTARGUMENT": "",
-                "ctl00$ContentPlaceHolder1$txtDataDe": data_azi,
-                "ctl00$ContentPlaceHolder1$txtDataPana": data_azi,
+                "__VIEWSTATE": get_hidden(soup, "__VIEWSTATE"),
+                "__VIEWSTATEGENERATOR": get_hidden(soup, "__VIEWSTATEGENERATOR"),
+                "__EVENTVALIDATION": get_hidden(soup, "__EVENTVALIDATION"),
+
+                "ctl00$ContentPlaceHolder1$txtDataDe": data,
+                "ctl00$ContentPlaceHolder1$txtDataPana": data,
                 "ctl00$ContentPlaceHolder1$ddlMaterie": "Insolvenţă",
-                "ctl00$ContentPlaceHolder1$ddlInstanta": tribunal_nume,
+                "ctl00$ContentPlaceHolder1$ddlInstanta": tribunal,
                 "ctl00$ContentPlaceHolder1$btnCautare": "Caută",
             }
 
-            # ---------------------------------------------------------
-            # 3. POST căutare
-            # ---------------------------------------------------------
-            time.sleep(DELAY_SECUNDE)
+            time.sleep(DELAY_SEC)
 
-            resp2 = SESSION.post(
+            # -------------------------
+            # POST REQUEST
+            # -------------------------
+            r2 = session.post(
                 BASE_URL,
                 data=payload,
                 timeout=30,
+                verify=False   # 🔥 IMPORTANT ALSO HERE
             )
 
-            resp2.raise_for_status()
+            r2.raise_for_status()
 
-            # ---------------------------------------------------------
-            # 4. Validare răspuns
-            # ---------------------------------------------------------
-            if "Dosar" not in resp2.text and "dosar" not in resp2.text:
-                raise ScraperError(
-                    "Portalul a returnat răspuns invalid"
-                )
-
-            # ---------------------------------------------------------
-            # 5. Parse rezultate
-            # ---------------------------------------------------------
-            rezultate = parseaza_rezultate(
-                resp2.text,
-                tribunal_nume,
-                data_azi,
-            )
-
-            log.info(
-                f"✅ {len(rezultate)} dosare găsite "
-                f"pentru {tribunal_nume}"
-            )
-
-            return rezultate
+            return parse_results(r2.text, tribunal, data)
 
         except Exception as e:
-            log.error(
-                f"❌ Eroare scraping "
-                f"{tribunal_nume} "
-                f"(attempt {attempt + 1}): {e}"
-            )
+            print(f"[ERROR] {tribunal}: {e}")
+            time.sleep(3 * (attempt + 1))
 
-            _save_failed_html(
-                tribunal_nume,
-                attempt,
-                locals().get("resp2"),
-            )
-
-            time.sleep(5 * (attempt + 1))
-
-    raise ScraperError(
-        f"Nu s-a putut interoga portalul pentru {tribunal_nume}"
-    )
+    return []
 
 
-def parseaza_rezultate(
-    html: str,
-    tribunal: str,
-    data_azi: str,
-) -> list[Dosar]:
-    """
-    Parsează rezultatele din HTML.
-    """
+# =========================
+# PARSER
+# =========================
 
-    soup = BeautifulSoup(
-        html,
-        "html.parser",
-    )
+def parse_results(html, tribunal, data):
 
-    # ---------------------------------------------------------
-    # Caută tabelul relevant
-    # ---------------------------------------------------------
-    tabel = soup.find(
-        "table",
-        {
-            "id": lambda x: x and "GridView" in x
-        },
-    )
+    soup = BeautifulSoup(html, "html.parser")
 
-    if not tabel:
-        log.warning(
-            f"⚠ Nu s-a găsit tabel rezultate pentru {tribunal}"
-        )
+    table = soup.find("table", {"id": lambda x: x and "GridView" in x})
+
+    if not table:
+        print("[SCRAPER] No results table found")
         return []
 
-    rows = tabel.find_all("tr")
+    rows = table.find_all("tr")[1:]
 
-    if len(rows) <= 1:
-        return []
+    results = []
 
-    rezultate = []
+    for r in rows:
 
-    # ---------------------------------------------------------
-    # Parse fiecare rând
-    # ---------------------------------------------------------
-    for row in rows[1:]:
-        cols = row.find_all("td")
+        cols = r.find_all("td")
 
         if len(cols) < 3:
             continue
 
-        try:
-            nr_dosar = cols[0].get_text(
-                strip=True
-            )
+        nr_dosar = cols[0].get_text(strip=True)
+        debitor = cols[1].get_text(strip=True)
+        nr_inreg = cols[2].get_text(strip=True)
 
-            debitor = cols[1].get_text(
-                strip=True
-            )
+        if not nr_dosar:
+            continue
 
-            nr_inregistrare = cols[2].get_text(
-                strip=True
-            )
-
-            # Curățare text
-            nr_dosar = " ".join(
-                nr_dosar.split()
-            )
-
-            debitor = " ".join(
-                debitor.split()
-            )
-
-            nr_inregistrare = " ".join(
-                nr_inregistrare.split()
-            )
-
-            if not nr_dosar:
-                continue
-
-            dosar = Dosar(
+        results.append(
+            Dosar(
+                case_uid=f"{nr_dosar}-{tribunal}",
                 nr_dosar=nr_dosar,
                 debitor=debitor,
-                nr_inregistrare=nr_inregistrare,
+                nr_inregistrare=nr_inreg,
                 tribunal=tribunal,
-                data_inreg=data_azi,
+                data_inreg=data
             )
-
-            rezultate.append(dosar)
-
-            log.info(
-                f"📄 Dosar găsit: "
-                f"{dosar.nr_dosar} "
-                f"- {dosar.debitor}"
-            )
-
-        except Exception as e:
-            log.error(
-                f"❌ Eroare parsare rând: {e}"
-            )
-
-    return rezultate
-
-
-def _get_hidden(
-    soup: BeautifulSoup,
-    name: str,
-) -> str:
-    """
-    Extrage câmp hidden ASP.NET.
-    """
-
-    tag = soup.find(
-        "input",
-        {"name": name},
-    )
-
-    if not tag:
-        raise ScraperError(
-            f"Hidden field lipsă: {name}"
         )
 
-    return tag.get("value", "")
-
-
-def _save_failed_html(
-    tribunal: str,
-    attempt: int,
-    response,
-):
-    """
-    Salvează HTML-ul când scrapingul eșuează.
-    """
-
-    try:
-        if not response:
-            return
-
-        filename = (
-            LOG_DIR
-            / f"failed_{tribunal}_{attempt}.html"
-        )
-
-        with open(
-            filename,
-            "w",
-            encoding="utf-8",
-        ) as f:
-            f.write(response.text)
-
-    except Exception as e:
-        log.error(
-            f"Nu am putut salva HTML debug: {e}"
-        )
+    return results

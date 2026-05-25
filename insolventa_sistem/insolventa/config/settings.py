@@ -1,37 +1,41 @@
 from pathlib import Path
-import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-DB_PATH = BASE_DIR / "dosare.db"
+DATA_DIR = BASE_DIR / "data"
 OUTPUT_DIR = BASE_DIR / "output"
 LOG_DIR = BASE_DIR / "logs"
-PDF_TEMPLATE = BASE_DIR / "templates" / "template.pdf"
 
-OUTPUT_DIR.mkdir(exist_ok=True)
-LOG_DIR.mkdir(exist_ok=True)
+DATA_DIR.mkdir(exist_ok=True, parents=True)
+OUTPUT_DIR.mkdir(exist_ok=True, parents=True)
+LOG_DIR.mkdir(exist_ok=True, parents=True)
 
-DELAY_SECUNDE = 4
-MAX_EMAILS_PER_RUN = 20
-MAX_RETRY = 3
+TEMPLATE_DIR = BASE_DIR / "templates"
+
+PDF_TEMPLATE = TEMPLATE_DIR / "template.pdf"
+
+DB_PATH = DATA_DIR / "dosare.db"
 
 BASE_URL = "https://portal.just.ro/SitePages/cautare.aspx"
 
-GMAIL_USER = os.environ["GMAIL_USER"]
-GMAIL_PASSWORD = os.environ["GMAIL_PASSWORD"]
+TRIBUNALS = [
+    "Tribunalul Bucuresti",
+    "Tribunalul Cluj"
+]
 
-EMAIL_SUBIECT = os.environ.get(
-    "EMAIL_SUBIECT",
-    "Oferta lichidator judiciar – Dosar {nr_dosar} – {debitor}"
-)
+DELAY_SEC = 2
+MAX_RETRY = 3
 
-EMAIL_CORP = os.environ.get(
-    "EMAIL_CORP",
-    """Stimate Grefier,
 
-Va transmitem alaturat oferta de lichidator judiciar pentru dosarul {nr_dosar}.
+# =========================
+# MAILTRAP CONFIG (TEST)
+# =========================
 
-Cu stima,
-{expeditor}
-"""
-)
+SMTP_HOST = "sandbox.smtp.mailtrap.io"
+SMTP_PORT = 2525
+
+SMTP_USER = "9d823d1b1c4f01"
+SMTP_PASS = "08485c85fe6875"
+
+EMAIL_FROM = "insolventa@test.local"
+EMAIL_TO = "youremail@example.com"
