@@ -32,6 +32,20 @@ def get_hidden(soup, name):
 
 def cauta_dosare(tribunal, data):
 
+        # ─── TEST MODE ───
+    from scripts.models import Dosar
+    return [
+        Dosar(
+            case_uid=f"TEST-111-2026-{tribunal}",
+            nr_dosar="111/30/2026",
+            debitor="FIRMA TEST SRL",
+            nr_inregistrare="42",
+            tribunal=tribunal,
+            data_inreg=data,
+        )
+    ]
+    # ─── END TEST MODE ───
+
     for attempt in range(MAX_RETRY):
 
         try:
@@ -45,7 +59,7 @@ def cauta_dosare(tribunal, data):
             r = session.get(
                 BASE_URL,
                 timeout=30,
-                verify=False   # 🔥 FIX CRITICAL (SSL ISSUE)
+                verify=False  
             )
 
             r.raise_for_status()

@@ -1,2 +1,43 @@
 2026-05-25 19:16:32,008 [INFO] START APP
 2026-05-25 19:16:33,688 [INFO] Tribunal: Tribunalul Bucuresti
+2026-05-28 18:50:29,867 [INFO] === START INSOLVENTA SYSTEM ===
+2026-05-28 18:50:29,879 [INFO] Checking: Tribunalul Bucuresti
+2026-05-28 18:50:34,362 [INFO] Found: 0
+2026-05-28 18:50:34,362 [INFO] Checking: Tribunalul Cluj
+2026-05-28 18:50:38,738 [INFO] Found: 0
+2026-05-28 18:53:31,608 [INFO] === START INSOLVENTA SYSTEM ===
+2026-05-28 18:53:31,610 [INFO] Checking: Tribunalul Bucuresti
+2026-05-28 18:53:31,610 [INFO] Found: 1
+2026-05-28 18:54:44,370 [INFO] === START INSOLVENTA SYSTEM ===
+2026-05-28 18:54:44,409 [INFO] Checking: Tribunalul Bucuresti
+2026-05-28 18:54:44,410 [INFO] Found: 1
+2026-05-28 18:54:44,455 [WARNING] Text insert failed: TRIBUNALUL TRIBUNALUL BUCURESTI -> need font file or buffer
+2026-05-28 18:54:44,543 [INFO] PDF generat: C:\Users\mitit\Desktop\InsolventaApp\insolventa_sistem\insolventa\output\111-30-2026.pdf
+2026-05-28 18:54:48,252 [INFO] Checking: Tribunalul Cluj
+2026-05-28 18:54:48,252 [INFO] Found: 1
+2026-05-28 18:54:48,302 [WARNING] Text insert failed: TRIBUNALUL TRIBUNALUL CLUJ -> need font file or buffer
+2026-05-28 18:54:48,329 [INFO] PDF generat: C:\Users\mitit\Desktop\InsolventaApp\insolventa_sistem\insolventa\output\111-30-2026.pdf
+2026-05-28 18:54:50,492 [ERROR] Email error pentru 111/30/2026: (550, b'5.7.0 Too many emails per second. Please upgrade your plan https://mailtrap.io/billing/plans/testing')
+2026-05-28 18:54:50,493 [INFO] TOTAL NEW DOSARE: 2
+2026-05-28 18:54:50,493 [INFO] === FINISH ===
+2026-05-28 18:58:16,736 [INFO] === START INSOLVENTA SYSTEM ===
+2026-05-28 18:58:16,745 [INFO] Checking: Tribunalul Bucuresti
+2026-05-28 18:58:16,745 [INFO] Found: 1
+2026-05-28 18:58:16,791 [INFO] PDF generat: C:\Users\mitit\Desktop\InsolventaApp\insolventa_sistem\insolventa\output\111-30-2026.pdf
+2026-05-28 18:58:20,317 [INFO] Email trimis către orice@test.com
+2026-05-28 18:58:22,319 [INFO] Checking: Tribunalul Cluj
+2026-05-28 18:58:22,319 [INFO] Found: 1
+2026-05-28 18:58:22,392 [INFO] PDF generat: C:\Users\mitit\Desktop\InsolventaApp\insolventa_sistem\insolventa\output\111-30-2026.pdf
+2026-05-28 18:58:24,880 [ERROR] Email error către orice@test.com: (550, b'5.7.0 Too many emails per second. Please upgrade your plan https://mailtrap.io/billing/plans/testing')
+2026-05-28 18:58:24,880 [ERROR] Email error pentru 111/30/2026: (550, b'5.7.0 Too many emails per second. Please upgrade your plan https://mailtrap.io/billing/plans/testing')
+2026-05-28 18:58:24,882 [INFO] TOTAL NEW DOSARE: 2
+2026-05-28 18:58:24,882 [INFO] === FINISH ===
+2026-05-28 19:12:35,854 [INFO] === START INSOLVENTA SYSTEM ===
+2026-05-28 19:12:35,855 [INFO] Checking: Tribunalul Bucuresti
+2026-05-28 19:12:35,856 [INFO] Found: 1
+2026-05-28 19:12:35,856 [INFO] Deja procesat: 111/30/2026
+2026-05-28 19:12:35,856 [INFO] Checking: Tribunalul Cluj
+2026-05-28 19:12:35,856 [INFO] Found: 1
+2026-05-28 19:12:35,856 [INFO] Deja procesat: 111/30/2026
+2026-05-28 19:12:35,856 [INFO] TOTAL NEW DOSARE: 0
+2026-05-28 19:12:35,857 [INFO] === FINISH ===

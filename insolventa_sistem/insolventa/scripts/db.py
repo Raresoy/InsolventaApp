@@ -40,3 +40,6 @@ class Database:
             "new"
         ))
         self.conn.commit()
+    
+    def close(self):
+        self.conn.close()

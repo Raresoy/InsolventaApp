@@ -1,6 +1,11 @@
+import os
 from pathlib import Path
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+from dotenv import load_dotenv
+
+BASE_DIR = Path(__file__).resolve().parent.parent\
+
+load_dotenv(BASE_DIR / "variabile_mediu.env")
 
 DATA_DIR = BASE_DIR / "data"
 OUTPUT_DIR = BASE_DIR / "output"
@@ -11,31 +16,24 @@ OUTPUT_DIR.mkdir(exist_ok=True, parents=True)
 LOG_DIR.mkdir(exist_ok=True, parents=True)
 
 TEMPLATE_DIR = BASE_DIR / "templates"
-
 PDF_TEMPLATE = TEMPLATE_DIR / "template.pdf"
-
 DB_PATH = DATA_DIR / "dosare.db"
 
 BASE_URL = "https://portal.just.ro/SitePages/cautare.aspx"
 
-TRIBUNALS = [
-    "Tribunalul Bucuresti",
-    "Tribunalul Cluj"
-]
+# Tribunal -> email destinatar
+TRIBUNALS = {
+    "Tribunalul Bucuresti": os.environ["EMAIL_BUCURESTI"],
+    "Tribunalul Cluj":      os.environ["EMAIL_CLUJ"],
+}
 
 DELAY_SEC = 2
 MAX_RETRY = 3
 
 
-# =========================
-# MAILTRAP CONFIG (TEST)
-# =========================
-
-SMTP_HOST = "sandbox.smtp.mailtrap.io"
-SMTP_PORT = 2525
-
-SMTP_USER = "9d823d1b1c4f01"
-SMTP_PASS = "08485c85fe6875"
-
-EMAIL_FROM = "insolventa@test.local"
-EMAIL_TO = "youremail@example.com"
+# SMTP — citit din environment (GitHub Secrets)
+SMTP_HOST = os.environ.get("SMTP_HOST", "sandbox.smtp.mailtrap.io")
+SMTP_PORT = int(os.environ.get("SMTP_PORT", "2525"))
+SMTP_USER = os.environ["SMTP_USER"]
+SMTP_PASS = os.environ["SMTP_PASS"]
+EMAIL_FROM = os.environ.get("EMAIL_FROM", "insolventa@test.local")

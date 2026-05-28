@@ -48,12 +48,10 @@ def completeaza_pdf(dosar):
         nr_inreg = dosar.nr_inregistrare or "-"
         data = dosar.data_inreg or "-"
 
-        # -------------------------
-        # inserari corecte
-        # -------------------------
+        # Inserari Antet
         inserari = [
-            (f"TRIBUNALUL {tribunal}", 72, 148, True),
-            ("INSOLVENȚĂ", 72, 171, True),
+            (tribunal.upper(), 72, 148, True),
+            ("INSOLVENTA", 72, 171, True),
             (f"Dosar nr. {nr_dosar}", 72, 195, False),
             (f"Debitor: {debitor}", 72, 219, False),
             (f"Nr. {nr_inreg} din {data}", 414, 243, False),
@@ -65,7 +63,7 @@ def completeaza_pdf(dosar):
                     (x, y),
                     text,
                     fontsize=10.5,
-                    fontname="helv-bold" if bold else "helv",
+                    fontname="Helvetica-Bold" if bold else "Helvetica",
                     color=(0, 0, 0),
                 )
             except Exception as e:
