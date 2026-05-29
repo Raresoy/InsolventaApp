@@ -23,8 +23,18 @@ BASE_URL = "https://portal.just.ro/SitePages/cautare.aspx"
 
 # Tribunal -> email destinatar
 TRIBUNALS = {
-    "Tribunalul Bucuresti": os.environ["EMAIL_BUCURESTI"],
-    "Tribunalul Cluj":      os.environ["EMAIL_CLUJ"],
+    "Tribunalul Bihor":           os.environ["EMAIL_BIHOR"],
+    "Tribunalul Satu Mare":       os.environ["EMAIL_SATU_MARE"],
+    "Tribunalul Arad":            os.environ["EMAIL_ARAD"],
+    "Tribunalul Timis":           os.environ["EMAIL_TIMIS"],
+    "Tribunalul Bistrita-Nasaud": os.environ["EMAIL_BISTRITA"],
+    "Tribunalul Cluj":            os.environ["EMAIL_CLUJ"],
+    "Tribunalul Maramures":       os.environ["EMAIL_MARAMURES"],
+    "Tribunalul Salaj":           os.environ["EMAIL_SALAJ"],
+    "Tribunalul Sibiu":           os.environ["EMAIL_SIBIU"],
+    "Tribunalul Harghita":        os.environ["EMAIL_HARGHITA"],
+    "Tribunalul Mures":           os.environ["EMAIL_MURES"],
+    "Tribunalul Neamt":           os.environ["EMAIL_NEAMT"],
 }
 
 DELAY_SEC = 2

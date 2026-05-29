@@ -1,6 +1,6 @@
 import re
 
-DOSAR_REGEX = r"^\d+\/\d+\/\d{4}$"
+DOSAR_REGEX = r"^\d+\/\d+\/\d{4}"
 
 
 class ValidationError(Exception):

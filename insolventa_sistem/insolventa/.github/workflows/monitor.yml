@@ -1,61 +1,42 @@
 name: Monitor Insolventa
 
-concurrency:
-  group: monitor-insolventa
-  cancel-in-progress: false
-
 on:
   schedule:
-    - cron: '0 6,10,14,18,22 * * 1-5'
-
-  workflow_dispatch:
+    - cron: '0 6,8,10,12,14 * * 1-5'  # Luni-Vineri: 9, 11, 13, 15, 17 ora României (UTC+3)
+  workflow_dispatch:  # permite rulare manuală din GitHub
 
 jobs:
-  monitor:
+  run:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-          cache: 'pip'
 
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Restore database
-        uses: actions/download-artifact@v4
-        with:
-          name: dosare-db
-          path: .
-        continue-on-error: true
-
       - name: Run monitor
         env:
-          GMAIL_USER: ${{ secrets.GMAIL_USER }}
-          GMAIL_PASSWORD: ${{ secrets.GMAIL_PASSWORD }}
-          TRIBUNALE_JSON: ${{ secrets.TRIBUNALE_JSON }}
-          EMAIL_SUBIECT: ${{ secrets.EMAIL_SUBIECT }}
-          EMAIL_CORP: ${{ secrets.EMAIL_CORP }}
-        run: python scripts/monitor.py
-
-      - name: Save database
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: dosare-db
-          path: dosare.db
-          retention-days: 90
-
-      - name: Save logs
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: logs-${{ github.run_number }}
-          path: logs/
-          retention-days: 30
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+          EMAIL_BIHOR: ${{ secrets.EMAIL_BIHOR }}
+          EMAIL_SATU_MARE: ${{ secrets.EMAIL_SATU_MARE }}
+          EMAIL_ARAD: ${{ secrets.EMAIL_ARAD }}
+          EMAIL_TIMIS: ${{ secrets.EMAIL_TIMIS }}
+          EMAIL_BISTRITA: ${{ secrets.EMAIL_BISTRITA }}
+          EMAIL_CLUJ: ${{ secrets.EMAIL_CLUJ }}
+          EMAIL_MARAMURES: ${{ secrets.EMAIL_MARAMURES }}
+          EMAIL_SALAJ: ${{ secrets.EMAIL_SALAJ }}
+          EMAIL_SIBIU: ${{ secrets.EMAIL_SIBIU }}
+          EMAIL_HARGHITA: ${{ secrets.EMAIL_HARGHITA }}
+          EMAIL_MURES: ${{ secrets.EMAIL_MURES }}
+          EMAIL_NEAMT: ${{ secrets.EMAIL_NEAMT }}
+        run: python main.py

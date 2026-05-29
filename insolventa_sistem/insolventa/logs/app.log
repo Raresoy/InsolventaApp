@@ -41,3 +41,179 @@
 2026-05-28 19:12:35,856 [INFO] Deja procesat: 111/30/2026
 2026-05-28 19:12:35,856 [INFO] TOTAL NEW DOSARE: 0
 2026-05-28 19:12:35,857 [INFO] === FINISH ===
+2026-05-28 19:37:44,224 [INFO] === START INSOLVENTA SYSTEM ===
+2026-05-28 19:37:44,224 [INFO] Checking: Tribunalul Bucuresti
+2026-05-28 19:37:44,225 [INFO] Found: 1
+2026-05-28 19:37:44,225 [INFO] Deja procesat: 111/30/2026
+2026-05-28 19:37:44,225 [INFO] Checking: Tribunalul Cluj
+2026-05-28 19:37:44,225 [INFO] Found: 1
+2026-05-28 19:37:44,225 [INFO] Deja procesat: 111/30/2026
+2026-05-28 19:37:44,225 [INFO] TOTAL NEW DOSARE: 0
+2026-05-28 19:37:44,225 [INFO] === FINISH ===
+2026-05-28 19:38:38,107 [INFO] === START INSOLVENTA SYSTEM ===
+2026-05-28 19:38:38,108 [INFO] Checking: Tribunalul Bucuresti
+2026-05-28 19:38:38,108 [INFO] Found: 1
+2026-05-28 19:38:38,108 [INFO] Deja procesat: 111/30/2026
+2026-05-28 19:38:38,108 [INFO] Checking: Tribunalul Cluj
+2026-05-28 19:38:38,109 [INFO] Found: 1
+2026-05-28 19:38:38,109 [INFO] Deja procesat: 111/30/2026
+2026-05-28 19:38:38,109 [INFO] TOTAL NEW DOSARE: 0
+2026-05-28 19:38:38,109 [INFO] === FINISH ===
+2026-05-28 19:40:28,456 [INFO] === START INSOLVENTA SYSTEM ===
+2026-05-28 19:40:28,457 [INFO] Checking: Tribunalul Bucuresti
+2026-05-28 19:40:28,457 [INFO] Found: 1
+2026-05-28 19:40:28,458 [INFO] Deja procesat: 111/30/2026
+2026-05-28 19:40:28,458 [INFO] Checking: Tribunalul Cluj
+2026-05-28 19:40:28,458 [INFO] Found: 1
+2026-05-28 19:40:28,458 [INFO] Deja procesat: 111/30/2026
+2026-05-28 19:40:28,458 [INFO] TOTAL NEW DOSARE: 0
+2026-05-28 19:40:28,458 [INFO] === FINISH ===
+2026-05-28 19:40:51,033 [INFO] === START INSOLVENTA SYSTEM ===
+2026-05-28 19:40:51,041 [INFO] Checking: Tribunalul Bucuresti
+2026-05-28 19:40:51,041 [INFO] Found: 1
+2026-05-28 19:40:51,073 [INFO] PDF generat: C:\Users\mitit\Desktop\InsolventaApp\insolventa_sistem\insolventa\output\111-30-2026.pdf
+2026-05-28 19:40:54,401 [INFO] Email trimis către orice@test.com
+2026-05-28 19:40:56,403 [INFO] Checking: Tribunalul Cluj
+2026-05-28 19:40:56,403 [INFO] Found: 1
+2026-05-28 19:40:56,437 [INFO] PDF generat: C:\Users\mitit\Desktop\InsolventaApp\insolventa_sistem\insolventa\output\111-30-2026.pdf
+2026-05-28 19:40:58,559 [ERROR] Email error către orice@test.com: (550, b'5.7.0 Too many emails per second. Please upgrade your plan https://mailtrap.io/billing/plans/testing')
+2026-05-28 19:40:58,560 [ERROR] Email error pentru 111/30/2026: (550, b'5.7.0 Too many emails per second. Please upgrade your plan https://mailtrap.io/billing/plans/testing')
+2026-05-28 19:40:58,561 [INFO] TOTAL NEW DOSARE: 2
+2026-05-28 19:40:58,561 [INFO] === FINISH ===
+2026-05-29 03:37:40,683 [INFO] === START INSOLVENTA SYSTEM ===
+2026-05-29 03:37:40,686 [INFO] Checking: Tribunalul Bucuresti
+2026-05-29 03:37:40,686 [INFO] Found: 0
+2026-05-29 03:37:40,686 [INFO] Checking: Tribunalul Cluj
+2026-05-29 03:37:42,904 [INFO] Found: 0
+2026-05-29 03:37:42,904 [INFO] TOTAL NEW DOSARE: 0
+2026-05-29 03:37:42,904 [INFO] === FINISH ===
+2026-05-29 03:38:28,941 [INFO] === START INSOLVENTA SYSTEM ===
+2026-05-29 03:38:28,951 [INFO] Checking: Tribunalul Bucuresti
+2026-05-29 03:38:28,951 [INFO] Found: 0
+2026-05-29 03:38:28,951 [INFO] Checking: Tribunalul Cluj
+2026-05-29 03:38:31,124 [INFO] Found: 0
+2026-05-29 03:38:31,124 [INFO] TOTAL NEW DOSARE: 0
+2026-05-29 03:38:31,125 [INFO] === FINISH ===
+2026-05-29 03:39:23,624 [INFO] === START INSOLVENTA SYSTEM ===
+2026-05-29 03:39:23,626 [INFO] Checking: Tribunalul Bihor
+2026-05-29 03:39:25,900 [INFO] Found: 0
+2026-05-29 03:39:25,900 [INFO] Checking: Tribunalul Satu Mare
+2026-05-29 03:39:28,147 [INFO] Found: 0
+2026-05-29 03:39:28,147 [INFO] Checking: Tribunalul Arad
+2026-05-29 03:39:30,429 [INFO] Found: 0
+2026-05-29 03:39:30,429 [INFO] Checking: Tribunalul Timis
+2026-05-29 03:39:32,777 [INFO] Found: 0
+2026-05-29 03:39:32,777 [INFO] Checking: Tribunalul Bistrita-Nasaud
+2026-05-29 03:39:35,042 [INFO] Found: 0
+2026-05-29 03:39:35,043 [INFO] Checking: Tribunalul Cluj
+2026-05-29 03:39:37,198 [INFO] Found: 0
+2026-05-29 03:39:37,198 [INFO] Checking: Tribunalul Maramures
+2026-05-29 03:39:39,427 [INFO] Found: 0
+2026-05-29 03:39:39,427 [INFO] Checking: Tribunalul Salaj
+2026-05-29 03:39:41,719 [INFO] Found: 0
+2026-05-29 03:39:41,719 [INFO] Checking: Tribunalul Sibiu
+2026-05-29 03:39:43,956 [INFO] Found: 0
+2026-05-29 03:39:43,956 [INFO] Checking: Tribunalul Harghita
+2026-05-29 03:39:46,237 [INFO] Found: 0
+2026-05-29 03:39:46,237 [INFO] Checking: Tribunalul Mures
+2026-05-29 03:39:48,488 [INFO] Found: 0
+2026-05-29 03:39:48,488 [INFO] Checking: Tribunalul Neamt
+2026-05-29 03:39:50,745 [INFO] Found: 0
+2026-05-29 03:39:50,745 [INFO] TOTAL NEW DOSARE: 0
+2026-05-29 03:39:50,745 [INFO] === FINISH ===
+2026-05-29 03:42:49,446 [INFO] === START INSOLVENTA SYSTEM ===
+2026-05-29 03:42:49,447 [INFO] Checking: Tribunalul Bihor
+2026-05-29 03:42:51,671 [INFO] Found: 0
+2026-05-29 03:42:51,671 [INFO] Checking: Tribunalul Satu Mare
+2026-05-29 03:42:53,801 [INFO] Found: 0
+2026-05-29 03:42:53,801 [INFO] Checking: Tribunalul Arad
+2026-05-29 03:42:55,974 [INFO] Found: 0
+2026-05-29 03:42:55,974 [INFO] Checking: Tribunalul Timis
+2026-05-29 03:42:58,115 [INFO] Found: 0
+2026-05-29 03:42:58,115 [INFO] Checking: Tribunalul Bistrita-Nasaud
+2026-05-29 03:43:00,236 [INFO] Found: 0
+2026-05-29 03:43:00,236 [INFO] Checking: Tribunalul Cluj
+2026-05-29 03:43:02,366 [INFO] Found: 0
+2026-05-29 03:43:02,366 [INFO] Checking: Tribunalul Maramures
+2026-05-29 03:43:04,495 [INFO] Found: 0
+2026-05-29 03:43:04,495 [INFO] Checking: Tribunalul Salaj
+2026-05-29 03:43:06,658 [INFO] Found: 0
+2026-05-29 03:43:06,658 [INFO] Checking: Tribunalul Sibiu
+2026-05-29 03:43:08,798 [INFO] Found: 0
+2026-05-29 03:43:08,798 [INFO] Checking: Tribunalul Harghita
+2026-05-29 03:43:10,939 [INFO] Found: 0
+2026-05-29 03:43:10,939 [INFO] Checking: Tribunalul Mures
+2026-05-29 03:49:02,293 [INFO] === START INSOLVENTA SYSTEM ===
+2026-05-29 03:49:02,294 [INFO] Checking: Tribunalul Bihor
+2026-05-29 03:49:04,532 [INFO] Found: 0
+2026-05-29 03:49:04,532 [INFO] Checking: Tribunalul Satu Mare
+2026-05-29 03:49:06,695 [INFO] Found: 0
+2026-05-29 03:49:06,695 [INFO] Checking: Tribunalul Arad
+2026-05-29 03:49:08,822 [INFO] Found: 0
+2026-05-29 03:49:08,822 [INFO] Checking: Tribunalul Timis
+2026-05-29 03:49:10,999 [INFO] Found: 0
+2026-05-29 03:49:10,999 [INFO] Checking: Tribunalul Bistrita-Nasaud
+2026-05-29 03:49:13,143 [INFO] Found: 0
+2026-05-29 03:49:13,144 [INFO] Checking: Tribunalul Cluj
+2026-05-29 03:49:15,318 [INFO] Found: 0
+2026-05-29 03:49:15,319 [INFO] Checking: Tribunalul Maramures
+2026-05-29 03:49:17,479 [INFO] Found: 0
+2026-05-29 03:49:17,479 [INFO] Checking: Tribunalul Salaj
+2026-05-29 03:49:23,498 [INFO] === START INSOLVENTA SYSTEM ===
+2026-05-29 03:49:23,499 [INFO] Checking: Tribunalul Bihor
+2026-05-29 03:49:25,703 [INFO] Found: 10
+2026-05-29 03:49:25,703 [WARNING] Dosar invalid, skip: Numar dosar invalid: 2967/111/2025/a1
+2026-05-29 03:49:25,704 [WARNING] Dosar invalid, skip: Numar dosar invalid: 1070/111/2025/a3
+2026-05-29 03:49:25,704 [WARNING] Dosar invalid, skip: Numar dosar invalid: 2882/111/2025/a1
+2026-05-29 03:49:25,804 [INFO] PDF generat: C:\Users\mitit\Desktop\InsolventaApp\insolventa_sistem\insolventa\output\2051-111-2026.pdf
+2026-05-29 03:49:29,178 [INFO] Email trimis către tr-bihor-reg@just.ro
+2026-05-29 03:49:31,204 [INFO] PDF generat: C:\Users\mitit\Desktop\InsolventaApp\insolventa_sistem\insolventa\output\2050-111-2026.pdf
+2026-05-29 03:57:06,443 [INFO] === START INSOLVENTA SYSTEM ===
+2026-05-29 03:57:06,444 [INFO] Checking: Tribunalul Bihor
+2026-05-29 03:57:08,624 [INFO] Found: 0
+2026-05-29 03:57:08,624 [INFO] Checking: Tribunalul Satu Mare
+2026-05-29 03:57:10,786 [INFO] Found: 0
+2026-05-29 03:57:10,786 [INFO] Checking: Tribunalul Arad
+2026-05-29 03:57:12,945 [INFO] Found: 0
+2026-05-29 03:57:12,945 [INFO] Checking: Tribunalul Timis
+2026-05-29 03:58:08,962 [INFO] === START INSOLVENTA SYSTEM ===
+2026-05-29 03:58:08,964 [INFO] Checking: Tribunalul Bihor
+2026-05-29 03:58:11,155 [INFO] Found: 0
+2026-05-29 03:58:11,155 [INFO] Checking: Tribunalul Satu Mare
+2026-05-29 03:58:13,304 [INFO] Found: 0
+2026-05-29 03:58:13,304 [INFO] Checking: Tribunalul Arad
+2026-05-29 03:58:15,438 [INFO] Found: 0
+2026-05-29 03:58:15,438 [INFO] Checking: Tribunalul Timis
+2026-05-29 03:58:17,621 [INFO] Found: 0
+2026-05-29 03:58:17,621 [INFO] Checking: Tribunalul Bistrita-Nasaud
+2026-05-29 03:58:25,033 [INFO] === START INSOLVENTA SYSTEM ===
+2026-05-29 03:58:25,034 [INFO] Checking: Tribunalul Bihor
+2026-05-29 03:58:48,812 [INFO] === START INSOLVENTA SYSTEM ===
+2026-05-29 03:58:48,812 [INFO] Checking: Tribunalul Bihor
+2026-05-29 03:59:05,975 [INFO] === START INSOLVENTA SYSTEM ===
+2026-05-29 03:59:05,985 [INFO] Checking: Tribunalul Bihor
+2026-05-29 03:59:33,407 [INFO] Found: 10
+2026-05-29 03:59:33,450 [INFO] PDF generat: C:\Users\mitit\Desktop\InsolventaApp\insolventa_sistem\insolventa\output\2967-111-2025-a1.pdf
+2026-05-29 03:59:36,712 [ERROR] Email error către tr-bihor-reg@just.ro: (250, b'2.0.0 Ok: queued')
+2026-05-29 03:59:36,712 [ERROR] Email error pentru 2967/111/2025/a1: (250, b'2.0.0 Ok: queued')
+2026-05-29 03:59:36,747 [INFO] PDF generat: C:\Users\mitit\Desktop\InsolventaApp\insolventa_sistem\insolventa\output\1070-111-2025-a3.pdf
+2026-05-29 03:59:38,843 [ERROR] Email error către tr-bihor-reg@just.ro: (550, b'5.7.0 Too many emails per second. Please upgrade your plan https://mailtrap.io/billing/plans/testing')
+2026-05-29 03:59:38,844 [ERROR] Email error pentru 1070/111/2025/a3: (550, b'5.7.0 Too many emails per second. Please upgrade your plan https://mailtrap.io/billing/plans/testing')
+2026-05-29 03:59:38,869 [INFO] PDF generat: C:\Users\mitit\Desktop\InsolventaApp\insolventa_sistem\insolventa\output\2882-111-2025-a1.pdf
+2026-05-29 03:59:41,015 [ERROR] Email error către tr-bihor-reg@just.ro: (550, b'5.7.0 Too many emails per second. Please upgrade your plan https://mailtrap.io/billing/plans/testing')
+2026-05-29 03:59:41,016 [ERROR] Email error pentru 2882/111/2025/a1: (550, b'5.7.0 Too many emails per second. Please upgrade your plan https://mailtrap.io/billing/plans/testing')
+2026-05-29 03:59:41,017 [WARNING] Dosar invalid, skip: Debitor invalid
+2026-05-29 03:59:41,017 [WARNING] Dosar invalid, skip: Debitor invalid
+2026-05-29 03:59:41,017 [WARNING] Dosar invalid, skip: Debitor invalid
+2026-05-29 03:59:41,017 [WARNING] Dosar invalid, skip: Debitor invalid
+2026-05-29 03:59:41,049 [INFO] PDF generat: C:\Users\mitit\Desktop\InsolventaApp\insolventa_sistem\insolventa\output\2047-111-2026.pdf
+2026-05-29 03:59:43,152 [ERROR] Email error către tr-bihor-reg@just.ro: (550, b'5.7.0 Too many emails per second. Please upgrade your plan https://mailtrap.io/billing/plans/testing')
+2026-05-29 03:59:43,153 [ERROR] Email error pentru 2047/111/2026: (550, b'5.7.0 Too many emails per second. Please upgrade your plan https://mailtrap.io/billing/plans/testing')
+2026-05-29 03:59:43,153 [WARNING] Dosar invalid, skip: Debitor invalid
+2026-05-29 03:59:43,154 [WARNING] Dosar invalid, skip: Debitor invalid
+2026-05-29 03:59:43,154 [INFO] Checking: Tribunalul Satu Mare
+2026-05-29 04:03:17,484 [INFO] === START INSOLVENTA SYSTEM ===
+2026-05-29 04:03:17,497 [INFO] Checking: Tribunalul Bihor
+2026-05-29 04:03:41,340 [INFO] Found: 10
+2026-05-29 04:03:41,377 [INFO] PDF generat: C:\Users\mitit\Desktop\InsolventaApp\insolventa_sistem\insolventa\output\2967-111-2025-a1.pdf
+2026-05-29 04:03:44,692 [INFO] Email trimis către tr-bihor-reg@just.ro

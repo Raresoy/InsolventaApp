@@ -39,6 +39,7 @@ def run():
                 log.warning(f"Dosar invalid, skip: {e}")
                 continue
 
+            d.nr_inregistrare = db.next_nr_inregistrare()
             db.insert(d)
 
             try:
