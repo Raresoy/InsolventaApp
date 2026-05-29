@@ -112,11 +112,11 @@ def parse_results(html, tribunal, data_azi, id_inst):
             continue
 
         # Filtru 1: doar dosarele de azi
-        #if data_inreg != data_azi:
+        if data_inreg != data_azi:
             continue
 
         # Filtru 2: doar insolventa/faliment
-       # if not any(x in materie.lower() for x in ["insolv", "faliment"]):
+        if not any(x in materie.lower() for x in ["insolv", "faliment"]):
             continue
 
         # extrage id_dosar din href: Dosar.aspx?id_dosar=XXX&id_inst=YYY

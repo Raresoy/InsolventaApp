@@ -53,13 +53,6 @@ def run():
                 send_email(
                     to=email_tribunal,
                     subject=f"Oferta lichidator – Dosar {d.nr_dosar} – {d.debitor}",
-                    body=(
-                        f"Tribunal: {d.tribunal}\n"
-                        f"Dosar: {d.nr_dosar}\n"
-                        f"Debitor: {d.debitor}\n"
-                        f"Nr. inregistrare: {d.nr_inregistrare}\n"
-                        f"Data: {d.data_inreg}\n"
-                    ),
                     pdf_path=pdf_path,
                 )
                 time.sleep(2)

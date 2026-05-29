@@ -2,65 +2,26 @@ name: Monitor Insolventa
 
 on:
   schedule:
-    # Ruleaza Luni-Vineri la orele 6, 10, 14, 18, 22 UTC (= 9, 13, 17, 21, 01 ora Romaniei)
-    - cron: '0 6,10,14,18,22 * * 1-5'
-
-  # Permite rulare manuala din interfata GitHub (pentru teste)
+    - cron: '0 6,8,10,12,14 * * 1-5'
   workflow_dispatch:
 
 jobs:
-  monitor:
+  run:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
 
     steps:
-      # ── 1. Descarca codul ─────────────────────────────────────────────────
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      # ── 2. Instaleaza Python ──────────────────────────────────────────────
-      - name: Instaleaza Python 3.11
+      - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-          cache: 'pip'
 
-      # ── 3. Instaleaza dependintele Python ─────────────────────────────────
-      - name: Instaleaza librarii
+      - name: Install dependencies
         run: pip install -r insolventa_sistem/insolventa/requirements.txt
 
-      # ── 4. Restaureaza baza de date din rularea anterioara ────────────────
-      - name: Restaureaza baza de date
-        uses: actions/download-artifact@v4
-        with:
-          name: dosare-db
-          path: .
-        continue-on-error: true   # Prima rulare nu are artifact — e OK
+      - name: Creeaza fisierul .env
+        run: echo "${{ secrets.ENV_FILE }}" > insolventa_sistem/insolventa/variabile_mediu.env
 
-      # ── 5. Ruleaza scriptul principal ─────────────────────────────────────
-      - name: Ruleaza monitor insolventa
-        env:
-          GMAIL_USER:      ${{ secrets.GMAIL_USER }}
-          GMAIL_PASSWORD:  ${{ secrets.GMAIL_PASSWORD }}
-          TRIBUNALE_JSON:  ${{ secrets.TRIBUNALE_JSON }}
-          EMAIL_SUBIECT:   ${{ secrets.EMAIL_SUBIECT }}
-          EMAIL_CORP:      ${{ secrets.EMAIL_CORP }}
-        run: python insolventa_sistem/insolventa/main.py
-
-      # ── 6. Salveaza baza de date pentru urmatoarea rulare ─────────────────
-      - name: Salveaza baza de date
-        uses: actions/upload-artifact@v4
-        if: always()   # Salveaza chiar daca scriptul a dat eroare
-        with:
-          name: dosare-db
-          path: dosare.db
-          retention-days: 90    # Pastreaza 90 de zile
-
-      # ── 7. Salveaza log-ul rularii ─────────────────────────────────────────
-      - name: Salveaza log rulare
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: log-${{ github.run_number }}
-          path: monitor.log
-          retention-days: 30
+      - name: Run monitor
+        run: cd insolventa_sistem/insolventa && python main.py
