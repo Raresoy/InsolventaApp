@@ -27,7 +27,7 @@ jobs:
 
       # ── 3. Instaleaza dependintele Python ─────────────────────────────────
       - name: Instaleaza librarii
-        run: pip install -r requirements.txt
+        run: pip install -r insolventa_sistem/insolventa/requirements.txt
 
       # ── 4. Restaureaza baza de date din rularea anterioara ────────────────
       - name: Restaureaza baza de date
@@ -45,7 +45,7 @@ jobs:
           TRIBUNALE_JSON:  ${{ secrets.TRIBUNALE_JSON }}
           EMAIL_SUBIECT:   ${{ secrets.EMAIL_SUBIECT }}
           EMAIL_CORP:      ${{ secrets.EMAIL_CORP }}
-        run: python scripts/monitor.py
+        run: python insolventa_sistem/insolventa/main.py
 
       # ── 6. Salveaza baza de date pentru urmatoarea rulare ─────────────────
       - name: Salveaza baza de date
