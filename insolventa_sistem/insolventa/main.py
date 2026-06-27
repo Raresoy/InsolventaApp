@@ -1,4 +1,5 @@
 import logging
+import time
 from datetime import datetime
 
 from config.settings import TRIBUNALS
@@ -9,10 +10,8 @@ from scripts.emailer import send_email
 from scripts.validator import valideaza_dosar, ValidationError
 from scripts.logger import setup_logging
 
-
 setup_logging()
 
-import time
 
 def run():
     log = logging.getLogger("main")
@@ -24,7 +23,6 @@ def run():
 
     for tribunal, email_tribunal in TRIBUNALS.items():
         log.info(f"Checking: {tribunal}")
-
         dosare = cauta_dosare(tribunal, today)
         log.info(f"Found: {len(dosare)}")
 
@@ -40,7 +38,6 @@ def run():
                 continue
 
             d.nr_inregistrare = db.next_nr_inregistrare()
-            db.insert(d)
 
             try:
                 pdf_path = completeaza_pdf(d)
@@ -52,14 +49,16 @@ def run():
             try:
                 send_email(
                     to=email_tribunal,
-                    subject=f"Oferta lichidator – Dosar {d.nr_dosar} – {d.debitor}",
+                    subject=f"Oferta lichidator - Dosar {d.nr_dosar} - {d.debitor}",
+                    body="",
                     pdf_path=pdf_path,
                 )
+                db.insert(d)
+                db.mark_processed(d.case_uid)
+                total_new += 1
                 time.sleep(2)
             except Exception as e:
                 log.error(f"Email error pentru {d.nr_dosar}: {e}")
-
-            total_new += 1
 
     db.close()
     log.info(f"TOTAL NEW DOSARE: {total_new}")

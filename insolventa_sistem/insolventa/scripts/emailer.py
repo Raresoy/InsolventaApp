@@ -15,7 +15,6 @@ def send_email(to: str, subject: str, body: str, pdf_path: Path = None):
     msg["Subject"] = subject
     msg["From"] = EMAIL_FROM
     msg["To"] = to
-
     msg.attach(MIMEText(body, "plain"))
 
     if pdf_path and Path(pdf_path).exists():
@@ -28,14 +27,13 @@ def send_email(to: str, subject: str, body: str, pdf_path: Path = None):
             )
             msg.attach(part)
     elif pdf_path:
-        log.warning(f"PDF nu există la calea: {pdf_path}")
+        log.warning(f"PDF nu exista la calea: {pdf_path}")
 
     try:
-        with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as server:
-            server.starttls()
+        with smtplib.SMTP_SSL(SMTP_HOST, SMTP_PORT) as server:
             server.login(SMTP_USER, SMTP_PASS)
             server.send_message(msg)
-        log.info(f"Email trimis către {to}")
+        log.info(f"Email trimis catre {to}")
     except Exception as e:
-        log.error(f"Email error către {to}: {e}")
+        log.error(f"Email error catre {to}: {e}")
         raise

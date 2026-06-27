@@ -2,13 +2,12 @@ name: Monitor Insolventa
 
 on:
   schedule:
-    - cron: '0 6,8,10,12,14 * * 1-5'  # Luni-Vineri: 9, 11, 13, 15, 17 ora României (UTC+3)
-  workflow_dispatch:  # permite rulare manuală din GitHub
+    - cron: '0 6,8,10,12,14 * * 1-5'
+  workflow_dispatch:
 
 jobs:
   run:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
 
@@ -22,21 +21,21 @@ jobs:
 
       - name: Run monitor
         env:
-          SMTP_HOST: ${{ secrets.SMTP_HOST }}
-          SMTP_PORT: ${{ secrets.SMTP_PORT }}
-          SMTP_USER: ${{ secrets.SMTP_USER }}
-          SMTP_PASS: ${{ secrets.SMTP_PASS }}
-          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
-          EMAIL_BIHOR: ${{ secrets.EMAIL_BIHOR }}
+          SMTP_HOST:       ${{ secrets.SMTP_HOST }}
+          SMTP_PORT:       ${{ secrets.SMTP_PORT }}
+          SMTP_USER:       ${{ secrets.SMTP_USER }}
+          SMTP_PASS:       ${{ secrets.SMTP_PASS }}
+          EMAIL_FROM:      ${{ secrets.EMAIL_FROM }}
+          EMAIL_BIHOR:     ${{ secrets.EMAIL_BIHOR }}
           EMAIL_SATU_MARE: ${{ secrets.EMAIL_SATU_MARE }}
-          EMAIL_ARAD: ${{ secrets.EMAIL_ARAD }}
-          EMAIL_TIMIS: ${{ secrets.EMAIL_TIMIS }}
-          EMAIL_BISTRITA: ${{ secrets.EMAIL_BISTRITA }}
-          EMAIL_CLUJ: ${{ secrets.EMAIL_CLUJ }}
+          EMAIL_ARAD:      ${{ secrets.EMAIL_ARAD }}
+          EMAIL_TIMIS:     ${{ secrets.EMAIL_TIMIS }}
+          EMAIL_BISTRITA:  ${{ secrets.EMAIL_BISTRITA }}
+          EMAIL_CLUJ:      ${{ secrets.EMAIL_CLUJ }}
           EMAIL_MARAMURES: ${{ secrets.EMAIL_MARAMURES }}
-          EMAIL_SALAJ: ${{ secrets.EMAIL_SALAJ }}
-          EMAIL_SIBIU: ${{ secrets.EMAIL_SIBIU }}
-          EMAIL_HARGHITA: ${{ secrets.EMAIL_HARGHITA }}
-          EMAIL_MURES: ${{ secrets.EMAIL_MURES }}
-          EMAIL_NEAMT: ${{ secrets.EMAIL_NEAMT }}
+          EMAIL_SALAJ:     ${{ secrets.EMAIL_SALAJ }}
+          EMAIL_SIBIU:     ${{ secrets.EMAIL_SIBIU }}
+          EMAIL_HARGHITA:  ${{ secrets.EMAIL_HARGHITA }}
+          EMAIL_MURES:     ${{ secrets.EMAIL_MURES }}
+          EMAIL_NEAMT:     ${{ secrets.EMAIL_NEAMT }}
         run: python main.py

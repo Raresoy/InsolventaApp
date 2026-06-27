@@ -1,10 +1,8 @@
 import os
 from pathlib import Path
-
 from dotenv import load_dotenv
 
-BASE_DIR = Path(__file__).resolve().parent.parent\
-
+BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / "variabile_mediu.env")
 
 DATA_DIR = BASE_DIR / "data"
@@ -40,10 +38,9 @@ TRIBUNALS = {
 DELAY_SEC = 2
 MAX_RETRY = 3
 
-
-# SMTP — citit din environment (GitHub Secrets)
-SMTP_HOST = os.environ.get("SMTP_HOST", "sandbox.smtp.mailtrap.io")
-SMTP_PORT = int(os.environ.get("SMTP_PORT", "2525"))
+# SMTP - citit din environment (GitHub Secrets)
+SMTP_HOST = os.environ.get("SMTP_HOST", "smtp.gmail.com")
+SMTP_PORT = int(os.environ.get("SMTP_PORT", "465"))
 SMTP_USER = os.environ["SMTP_USER"]
 SMTP_PASS = os.environ["SMTP_PASS"]
-EMAIL_FROM = os.environ.get("EMAIL_FROM", "insolventa@test.local")
+EMAIL_FROM = os.environ.get("EMAIL_FROM", os.environ["SMTP_USER"])

@@ -1,8 +1,6 @@
 import logging
 from pathlib import Path
-
 import fitz
-
 from config.settings import PDF_TEMPLATE, OUTPUT_DIR
 
 log = logging.getLogger(__name__)
@@ -13,42 +11,31 @@ class PDFGenerationError(Exception):
 
 
 def completeaza_pdf(dosar):
-
     if not PDF_TEMPLATE.exists():
         raise PDFGenerationError("Template PDF lipsa")
 
     OUTPUT_DIR.mkdir(exist_ok=True, parents=True)
-
     safe_name = dosar.nr_dosar.replace("/", "-")
     output_path = OUTPUT_DIR / f"{safe_name}.pdf"
 
     doc = None
-
     try:
         doc = fitz.open(str(PDF_TEMPLATE))
         page = doc[0]
 
-        # -------------------------
-        # zona antet (clean wipe)
-        # -------------------------
         zona_antet = fitz.Rect(70, 130, 530, 250)
-
         page.draw_rect(
             zona_antet,
             color=(1, 1, 1),
             fill=(1, 1, 1),
         )
 
-        # -------------------------
-        # safe values
-        # -------------------------
         tribunal = (dosar.tribunal or "").upper()
         debitor = dosar.debitor or "-"
         nr_dosar = dosar.nr_dosar or "-"
         nr_inreg = dosar.nr_inregistrare or "-"
         data = dosar.data_inreg or "-"
 
-        # Inserari Antet
         inserari = [
             (tribunal.upper(), 72, 148, True),
             ("INSOLVENTA", 72, 171, True),
@@ -70,12 +57,10 @@ def completeaza_pdf(dosar):
                 log.warning(f"Text insert failed: {text} -> {e}")
 
         doc.save(str(output_path))
-
         return output_path
 
     except Exception as e:
         raise PDFGenerationError(f"PDF generation failed: {e}")
-
     finally:
         if doc:
             doc.close()
