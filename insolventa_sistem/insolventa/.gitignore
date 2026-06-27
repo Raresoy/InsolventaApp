@@ -4,3 +4,4 @@ output_pdfs/
 *.pyc
 __pycache__/
 .env
+variabile_mediu.env
